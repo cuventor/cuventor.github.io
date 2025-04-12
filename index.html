@@ -388,7 +388,7 @@
         // Initialize EmailJS
         (function() {
             if (typeof emailjs !== 'undefined') {
-                emailjs.init("YOUR_PUBLIC_KEY");
+                emailjs.init("paJmeJVY3SOibQbfj");
             } else {
                 console.error('EmailJS not loaded properly');
             }
@@ -437,13 +437,13 @@
 
                 try {
                     await emailjs.send(
-                        "YOUR_SERVICE_ID",
-                        "YOUR_TEMPLATE_ID",
+                        "service_yizvedh",
+                        "template_x4kiw7f",
                         {
                             subscriber_email: emailInput.value,
                             discount_code: "CUVENTOR15"
                         },
-                        "YOUR_PUBLIC_KEY"
+                        "paJmeJVY3SOibQbfj"
                     );
                     localStorage.setItem('newsletter_subscribed', 'true');
                     successMessage.style.display = 'block';
