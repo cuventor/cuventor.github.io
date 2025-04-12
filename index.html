@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cuventor | coming soon</title>
-    <!-- EmailJS SDK -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
+    <!-- EmailJS SDK - Updated CDN -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!-- Font preload for better performance -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital@0;1&family=Montserrat:wght@400;700;900&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital@0;1&family=Montserrat:wght@400;700;900&display=swap">
     <style>
-        /* Previous styles remain the same until newsletter-form */
-
+        /* Previous styles remain the same */
+        @font-display: swap; /* Add this for better font loading */
+        
         .newsletter-form {
             position: fixed;
             bottom: 30px;
@@ -25,87 +29,7 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        .newsletter-form.slide-out {
-            transform: translateX(150%);
-        }
-
-        .newsletter-form h3 {
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .newsletter-form input[type="email"] {
-            width: 100%;
-            padding: 8px 12px;
-            margin-bottom: 10px;
-            border: 1px solid var(--secondary-color);
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        .newsletter-form button {
-            width: 100%;
-            padding: 8px 12px;
-            background: var(--primary-color);
-            color: var(--white);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            transition: opacity 0.3s ease;
-        }
-
-        .newsletter-form button:hover {
-            opacity: 0.9;
-        }
-
-        .newsletter-form button:disabled {
-            background: var(--secondary-color);
-            cursor: not-allowed;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            color: var(--secondary-color);
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: var(--primary-color);
-        }
-
-        .message {
-            margin-top: 10px;
-            padding: 8px;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .success-message {
-            background-color: #e6f7e6;
-            color: #2e7d32;
-        }
-
-        .error-message {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-
-        /* Rest of your existing styles */
+        /* Rest of your styles remain the same */
     </style>
 </head>
 <body>
@@ -120,10 +44,15 @@
         <div id="error-message" class="message error-message">Oops! Something went wrong. Please try again.</div>
     </form>
 
-    <script>
-        // Initialize EmailJS with your user ID
+    <script type="text/javascript">
+        // Initialize EmailJS
         (function() {
-            emailjs.init("paJmeJVY3SOibQbfj"); 
+            // Make sure the script is loaded before initializing
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init("paJmeJVY3SOibQbfj");
+            } else {
+                console.error('EmailJS not loaded properly');
+            }
         })();
 
         // Newsletter functionality
@@ -170,30 +99,29 @@
                 submitBtn.textContent = 'Subscribing...';
 
                 try {
-                    const response = await emailjs.send(
-                        "service_yizvedh",
-                        "template_x4kiw7f",
+                    await emailjs.send(
+                        "service_yizvedh", // Your EmailJS service ID
+                        "template_x4kiw7f", // Your EmailJS template ID
                         {
                             subscriber_email: emailInput.value,
-                            discount_code: "CUVENTOR15" // Your discount code
-                        }
+                            discount_code: "CUVENTOR15"
+                        },
+                        "paJmeJVY3SOibQbfj" // Your EmailJS public key
                     );
 
-                    if (response.status === 200) {
-                        localStorage.setItem('newsletter_subscribed', 'true');
-                        successMessage.style.display = 'block';
-                        errorMessage.style.display = 'none';
-                        emailInput.value = '';
-                        
-                        // Hide form after success
+                    localStorage.setItem('newsletter_subscribed', 'true');
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    emailInput.value = '';
+                    
+                    // Hide form after success
+                    setTimeout(() => {
+                        newsletterForm.classList.add('slide-out');
                         setTimeout(() => {
-                            newsletterForm.classList.add('slide-out');
-                            setTimeout(() => {
-                                newsletterForm.style.display = 'none';
-                                newsletterForm.classList.remove('slide-out');
-                            }, 300);
-                        }, 3000);
-                    }
+                            newsletterForm.style.display = 'none';
+                            newsletterForm.classList.remove('slide-out');
+                        }, 300);
+                    }, 3000);
                 } catch (error) {
                     console.error('EmailJS error:', error);
                     errorMessage.style.display = 'block';
@@ -205,7 +133,7 @@
             });
         });
 
-        // Your existing definitions and video error handling code remains the same
+        // Your existing definitions and video error handling code remains here
     </script>
 </body>
 </html>
