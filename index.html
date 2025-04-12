@@ -170,6 +170,54 @@
                 transform: translateY(0);
             }
         }
+.newsletter-form {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 320px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1.5s;
+}
+
+
+.newsletter-form h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+
+.newsletter-form input[type="email"] {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.newsletter-form button {
+    width: 100%;
+    padding: 8px 12px;
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    transition: opacity 0.3s ease;
+}
+
+
+.newsletter-form button:hover {
+    opacity: 0.9;
+}
 
         @media (max-width: 992px) {
             .logo {
@@ -256,25 +304,53 @@
 
     <script>
         const definitions = [
-            {
-                word: 'cuventor',
-                phonetic: '/ku·ven·tor/',
-                partOfSpeech: 's.m.',
-                meanings: [
-                    'Creator de cuvinte care se poartă; inventator de expresii vestimentare; artizan lexical.',
-                    'Care transformă elemente lingvistice în declarații de modă. Din cuvânt + inventor.'
-                ]
-            },
-            {
-                word: 'wordrobe',
-                phonetic: '/word·robe/',
-                partOfSpeech: 'n.',
-                meanings: [
-                    'Colecție de cuvinte care se poartă care exprimă identitatea și stilul personal.',
-                    'Garderobă conceptuală formată din expresii lingvistice transformate în obiecte vestimentare. Din word + wardrobe.'
-                ]
-            }
-        ];
+    {
+        word: 'cuventor',
+        phonetic: '/ku·ven·tor/',
+        partOfSpeech: 's.m.',
+        meanings: [
+            'Creator de cuvinte care se poartă; inventator de expresii vestimentare; artizan lexical.',
+            'Care transformă elemente lingvistice în declarații de modă. Din cuvânt + inventor.'
+        ]
+    },
+    {
+        word: 'wordrobe',
+        phonetic: '/word·robe/',
+        partOfSpeech: 'n.',
+        meanings: [
+            'Colecție de cuvinte care se poartă care exprimă identitatea și stilul personal.',
+            'Garderobă conceptuală formată din expresii lingvistice transformate în obiecte vestimentare. Din word + wardrobe.'
+        ]
+    },
+    {
+        word: 'precis',
+        phonetic: '/pre·cis/',
+        partOfSpeech: 'adj.',
+        meanings: [
+            'Care se îmbracă cu atenție la detalii și precizie în alegerea vestimentației.',
+            'Stil vestimentar exact și bine definit. Din fr. precis.'
+        ]
+    },
+    {
+        word: 'zeflemea',
+        phonetic: '/ze·fle·mea/',
+        partOfSpeech: 's.f.',
+        meanings: [
+            'Atitudine ironică exprimată prin vestimentație.',
+            'Expresie vestimentară care transmite umor și ironie subtilă.'
+        ]
+    },
+    {
+        word: 'zvac',
+        phonetic: '/zvac/',
+        partOfSpeech: 's.n.',
+        meanings: [
+            'Moment de inspirație spontană în alegerea ținutei.',
+            'Energie creativă manifestată în combinații vestimentare neașteptate.'
+        ]
+    }
+];
+
 
         function createDefinitionHTML(def) {
             return `
@@ -304,5 +380,11 @@
             handleVideoError();
         });
     </script>
+    <form class="newsletter-form" action="mailto:hello@cuventor.com" method="POST" enctype="text/plain">
+    <h3>Subscribe for 15% off</h3>
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit">Subscribe</button>
+</form>
+
 </body>
 </html>
