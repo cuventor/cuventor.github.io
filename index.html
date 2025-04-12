@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cuventor | coming soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gentium+Plus:ital@0;1&family=Montserrat:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f8f8f8;
+            color: #1a1a1a;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .showcase {
+            position: relative;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .showcase video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .content {
+            padding: 3vh 4vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1vh;
+        }
+        
+        .logo {
+            max-width: 290px;
+            height: auto;
+            width: 100%;
+        }
+        
+        .instagram-icon {
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 0.8s;
+        }
+        
+        .instagram-icon:hover {
+            opacity: 1;
+        }
+        
+        .tagline {
+            font-family: 'Gentium Plus', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.9rem);
+            color: #666;
+            margin-bottom: 1vh;
+        }
+        
+        .coming-soon {
+            font-size: clamp(3rem, 6vw, 7rem);
+            font-weight: 900;
+            line-height: 1;
+            margin: 1vh 0 2vh;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .definition {
+            font-family: 'Gentium Plus', serif;
+            font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            max-width: 400px;
+            opacity: 0.8;
+            line-height: 1.4;
+            margin-bottom: 2vh;
+        }
+        
+        .phonetic {
+            font-style: italic;
+            margin-bottom: 0.5vh;
+        }
+        
+        .part-of-speech {
+            margin-bottom: 0.5vh;
+        }
+        
+        .def-list {
+            list-style-position: inside;
+            padding-left: 0.5rem;
+        }
+        
+        /* Enhanced responsive styles */
+        @media (max-width: 992px) {
+            .logo {
+                max-width: 200px;
+            }
+            
+            .content {
+                padding: 2vh 3vw;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 40vh 60vh;
+            }
+            
+            .content {
+                padding: 3vh 5vw;
+                justify-content: flex-start;
+            }
+            
+            .logo-container {
+                margin-bottom: 1vh;
+            }
+            
+            .coming-soon {
+                margin: 1vh 0;
+            }
+            
+            .definition {
+                margin-bottom: 1.5vh;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .coming-soon br {
+                display: none;
+            }
+            
+            .coming-soon {
+                font-size: clamp(2.5rem, 8vw, 3.5rem);
+            }
+        }
+        
+        /* Landscape mode on small devices */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 100vh;
+            }
+            
+            .logo {
+                max-width: 150px;
+            }
+            
+            .content {
+                padding: 2vh 3vw;
+            }
+            
+            .coming-soon {
+                font-size: clamp(2rem, 5vw, 3rem);
+                margin: 0.5vh 0;
+            }
+            
+            .tagline {
+                font-size: clamp(1rem, 2vw, 1.3rem);
+            }
+            
+            .definition {
+                font-size: clamp(0.8rem, 1.5vw, 1rem);
+                margin-bottom: 1vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="showcase">
+            <video autoplay muted loop playsinline>
+                <source src="assets/video/cuventor WORDROBE - 3D Mockup.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <div class="content">
+            <div class="logo-container">
+                <img src="assets/logo.png" alt="Cuventor Logo" class="logo">
+                <a href="https://instagram.com/cuventor" target="_blank">
+                    <svg class="instagram-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
+                </a>
+            </div>
+            
+            <h2 class="tagline">cuvinte care se poartă</h2>
+            
+            <div class="coming-soon">COMING SOON</div>
+            
+            <!-- Definition content will be randomly selected -->
+            <div id="definition-container"></div>
+        </div>
+    </div>
+    <script>
+        // Definition content options
+        const definitions = [
+            // Cuventor definition
+            `<div class="definition">
+                <p class="phonetic">/ku·ven·tor/</p>
+                <p class="part-of-speech">s.m.</p>
+                <ol class="def-list">
+                    <li>Creator de cuvinte care se poartă; inventator de expresii vestimentare; artizan lexical.</li>
+                    <li>Care transformă elemente lingvistice în declarații de modă. Din cuvânt + inventor.</li>
+                </ol>
+            </div>`,
+            
+            // Wordrobe definition
+            `<div class="definition">
+                <p class="phonetic">/word·robe/</p>
+                <p class="part-of-speech">n.</p>
+                <ol class="def-list">
+                    <li>Colecție de cuvinte care se poartă care exprimă identitatea și stilul personal.</li>
+                    <li>Garderobă conceptuală formată din expresii lingvistice transformate în obiecte vestimentare. Din word + wardrobe.</li>
+                </ol>
+            </div>`,
+            
+            // Adding more Romanian word definitions
+            `<div class="definition">
+                <p class="phonetic">/mish·to/</p>
+                <p class="part-of-speech">adj.</p>
+                <ol class="def-list">
+                    <li>Excelent, grozav, de calitate superioară; care stârnește admirație.</li>
+                    <li>Plăcut, agreabil, care produce satisfacție. Etimologie incertă, posibil din limba romani.</li>
+                </ol>
+            </div>`,
+            
+            `<div class="definition">
+                <p class="phonetic">/zvîc/</p>
+                <p class="part-of-speech">s.n.</p>
+                <ol class="def-list">
+                    <li>Mișcare bruscă, energică sau impuls.</li>
+                    <li>Tresărire, zvâcnitură; manifestare subită a unei energii interioare.</li>
+                </ol>
+            </div>`,
+            
+            `<div class="definition">
+                <p class="phonetic">/du·i·os/</p>
+                <p class="part-of-speech">adj.</p>
+                <ol class="def-list">
+                    <li>Gingaș, tandru, afectuos; care exprimă sau inspiră tandrețe.</li>
+                    <li>Care trezește un sentiment de compasiune sau de afecțiune profundă.</li>
+                </ol>
+            </div>`
+        ];
+        
+        // Randomly select a definition on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const randomIndex = Math.floor(Math.random() * definitions.length);
+            document.getElementById('definition-container').innerHTML = definitions[randomIndex];
+        });
+    </script>
+</body>
+</html>
