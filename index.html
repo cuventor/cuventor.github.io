@@ -213,6 +213,9 @@
             .showcase {
                 height: 38.2vh; /* Updated height */
             }
+            .video-container video {
+                transform: translate(-50%, -50%) scale(1.2); /* Zoom to 120% on mobile */
+            }
             .content {
                 height: 61.8vh; /* Updated height */
                 padding: 4vh 6vw;
@@ -328,7 +331,6 @@
                 ]
             }
         ];
-
         function createDefinitionHTML(def) {
             return `
                 <div class="definition">
@@ -340,7 +342,6 @@
                 </div>
             `;
         }
-
         function handleVideoError() {
             const video = document.querySelector('video');
             const fallback = document.querySelector('.video-fallback');
@@ -350,7 +351,6 @@
                 fallback.style.display = 'block';
             });
         }
-
         (function() {
             if (typeof emailjs !== 'undefined') {
                 emailjs.init("paJmeJVY3SOibQbfj");
@@ -358,10 +358,13 @@
                 console.error('EmailJS not loaded properly');
             }
         })();
-
         document.addEventListener('DOMContentLoaded', () => {
             let lastScrollTime = 0;
-            const scrollThreshold = 1000;
+            const scrollThreshold = 500; // Reduced threshold for mobile
+            let touchStartY = 0;
+            let touchEndY = 0;
+            const minSwipeDistance = 30; // Minimum distance for a swipe
+            
             function updateDefinition() {
                 const currentTime = new Date().getTime();
                 if (currentTime - lastScrollTime > scrollThreshold) {
@@ -378,35 +381,57 @@
                     lastScrollTime = currentTime;
                 }
             }
-
+            
+            // Enhanced scroll detection for mobile
             let lastScrollY = window.scrollY;
             let ticking = false;
+            
             window.addEventListener('scroll', () => {
                 if (!ticking) {
                     window.requestAnimationFrame(() => {
-                        updateDefinition();
+                        // Check if scroll was significant
+                        const currentScrollY = window.scrollY;
+                        if (Math.abs(currentScrollY - lastScrollY) > 5) {
+                            updateDefinition();
+                        }
+                        lastScrollY = currentScrollY;
                         ticking = false;
                     });
                     ticking = true;
                 }
             }, { passive: true });
-
+            
+            // Add touch events for better mobile support
+            document.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                touchEndY = e.changedTouches[0].clientY;
+                const swipeDistance = touchEndY - touchStartY;
+                
+                if (Math.abs(swipeDistance) > minSwipeDistance) {
+                    updateDefinition();
+                }
+            }, { passive: true });
+            
+            // Initialize with random definition
             const randomIndex = Math.floor(Math.random() * definitions.length);
             document.getElementById('definition-container').innerHTML = createDefinitionHTML(definitions[randomIndex]);
-
+            
             handleVideoError();
-
+            
             const newsletterForm = document.getElementById('newsletter-form');
             const closeBtn = document.querySelector('.close-btn');
             const submitBtn = document.getElementById('submit-btn');
             const successMessage = document.getElementById('success-message');
             const errorMessage = document.getElementById('error-message');
             const emailInput = document.getElementById('subscriber-email');
-
+            
             const hasSubscribed = localStorage.getItem('newsletter_subscribed');
             const lastClosed = localStorage.getItem('newsletter_closed');
             const currentTime = new Date().getTime();
-
+            
             if (hasSubscribed === 'true') {
                 newsletterForm.style.display = 'none';
             } else if (lastClosed) {
@@ -417,7 +442,7 @@
                     newsletterForm.style.display = 'none';
                 }
             }
-
+            
             closeBtn.addEventListener('click', () => {
                 newsletterForm.classList.add('slide-out');
                 localStorage.setItem('newsletter_closed', currentTime.toString());
@@ -426,12 +451,12 @@
                     newsletterForm.classList.remove('slide-out');
                 }, 300);
             });
-
+            
             newsletterForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Subscribing...';
-
+                
                 try {
                     await emailjs.send(
                         "service_yizvedh",
@@ -442,7 +467,7 @@
                         },
                         "paJmeJVY3SOibQbfj"
                     );
-
+                    
                     localStorage.setItem('newsletter_subscribed', 'true');
                     successMessage.style.display = 'block';
                     errorMessage.style.display = 'none';
