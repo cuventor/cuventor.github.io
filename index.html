@@ -31,7 +31,7 @@
         .container {
             height: 100vh;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 61.8% 38.2%;
         }
         .showcase {
             position: relative;
@@ -49,10 +49,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: auto;
-            height: auto;
-            min-width: 100%;
-            min-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
         .video-fallback {
@@ -125,6 +123,7 @@
             opacity: 0;
             animation: fadeIn 1s ease forwards;
             animation-delay: 1.2s;
+            transition: opacity 0.3s ease;
         }
         .phonetic {
             font-style: italic;
@@ -206,9 +205,16 @@
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
-                grid-template-rows: 45vh 55vh;
+                grid-template-rows: 61.8vh 38.2vh;
+                height: 100vh;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .showcase {
+                height: 61.8vh;
             }
             .content {
+                height: 38.2vh;
                 padding: 4vh 6vw;
             }
             .coming-soon {
@@ -217,23 +223,25 @@
             .definition {
                 font-size: clamp(0.9rem, 2vw, 1.1rem);
             }
-            .video-container video {
-                object-fit: cover;
-                width: 120%;
-                height: 120%;
-                max-width: none;
-                max-height: none;
-            }
         }
         @media (max-width: 480px) {
             .container {
-                grid-template-rows: 40vh 60vh;
+                grid-template-rows: 61.8vh 38.2vh;
             }
             .logo {
                 max-width: 180px;
             }
             .content {
                 padding: 3vh 5vw;
+            }
+        }
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                grid-template-columns: 61.8% 38.2%;
+                grid-template-rows: 100vh;
+            }
+            .content {
+                padding: 3vh 4vw;
             }
         }
     </style>
@@ -243,23 +251,25 @@
         <div class="showcase">
             <div class="video-container">
                 <video autoplay muted loop playsinline>
-                    <source src="https://drive.google.com/uc?export=download&id=1wAfh9qwvE75LFQ6UgH65W_EFqDqtWOAK" type="video/mp4">
+                    <source src="assets/video/cuventor_WORDROBE.mp4" type="video/mp4">
+                    <source src="assets/video/cuventor_WORDROBE.webm" type="video/webm">
                 </video>
-                <div class="video-fallback"></div>
+                <div class="video-fallback" aria-hidden="true"></div>
             </div>
         </div>
+        
         <main class="content">
             <div class="logo-container">
-                <img src="https://drive.google.com/uc?export=download&id=1e6tqRj0-AeWCQb17YiF6ocX1ycz44PQj" alt="cuventor logo" class="logo">
-                <a href="https://www.instagram.com/cuventor" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <img src="https://drive.google.com/uc?export=download&id=1HrPz5qD-QPdo7xkQxc0SyVdZQCYzB4qG" alt="Instagram" class="instagram-icon">
+                <img src="assets/logo.png" alt="Cuventor Logo" class="logo">
+                <a href="https://instagram.com/cuventor" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Follow us on Instagram">
+                    <svg class="instagram-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    </svg>
                 </a>
             </div>
-            <p class="tagline">cuvinte care se poartă</p>
+            <h2 class="tagline">cuvinte care se poartă</h2>
             <h1 class="coming-soon">COMING SOON</h1>
-            <div id="definition-container">
-                <!-- Definitions will be dynamically inserted here -->
-            </div>
+            <div id="definition-container" aria-live="polite"></div>
         </main>
     </div>
     <form id="newsletter-form" class="newsletter-form">
@@ -341,7 +351,6 @@
             });
         }
 
-        // Initialize EmailJS
         (function() {
             if (typeof emailjs !== 'undefined') {
                 emailjs.init("paJmeJVY3SOibQbfj");
@@ -351,8 +360,42 @@
         })();
 
         document.addEventListener('DOMContentLoaded', () => {
+            let lastScrollTime = 0;
+            const scrollThreshold = 1000;
+
+            function updateDefinition() {
+                const currentTime = new Date().getTime();
+                if (currentTime - lastScrollTime > scrollThreshold) {
+                    const randomIndex = Math.floor(Math.random() * definitions.length);
+                    const definitionContainer = document.getElementById('definition-container');
+                    
+                    definitionContainer.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        definitionContainer.innerHTML = createDefinitionHTML(definitions[randomIndex]);
+                        definitionContainer.style.opacity = '1';
+                    }, 300);
+                    
+                    lastScrollTime = currentTime;
+                }
+            }
+
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateDefinition();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
             const randomIndex = Math.floor(Math.random() * definitions.length);
             document.getElementById('definition-container').innerHTML = createDefinitionHTML(definitions[randomIndex]);
+
             handleVideoError();
 
             const newsletterForm = document.getElementById('newsletter-form');
@@ -401,7 +444,6 @@
                         },
                         "paJmeJVY3SOibQbfj"
                     );
-
                     localStorage.setItem('newsletter_subscribed', 'true');
                     successMessage.style.display = 'block';
                     errorMessage.style.display = 'none';
